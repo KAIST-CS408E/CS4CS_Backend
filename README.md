@@ -39,3 +39,5 @@ http://143.248.188.11:8003/users/
 	"message": "User Registered Sucessfully !"
 }
 ```
+
+5-2. You can also receive a confirmation email from your 'YOUR_EMAIL_STRING' account. (Confirmation step is not yet fully developed)
