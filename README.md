@@ -8,7 +8,7 @@ node app.js
 # How To Test The Server-side?
 1. Download Insomnia
 
-https://insomnia.rest/download/#windows
+https://insomnia.rest/download/
 
 2. Open Insomnia
 
