@@ -1,0 +1,23 @@
+{
+  "name": "cs4cs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Dorian",
+  "license": "ISC",
+  "dependencies": {
+    "basic-auth": "^1.0.4",
+    "bcryptjs": "^2.3.0",
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "jsonwebtoken": "^7.1.9",
+    "md5": "^2.2.1",
+    "mongoose": "^4.6.0",
+    "morgan": "^1.7.0",
+    "nodemailer": "^2.7.2",
+    "randomstring": "^1.1.5"
+  }
+}
