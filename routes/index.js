@@ -21,26 +21,44 @@ module.exports = function(router) {
         const name = req.body.name;
         const email = req.body.email;
         const phone_number = req.body.phone_number;
+        const token = req.body.token;
         console.log(name + email + phone_number);
 
         if (!name || !email || !phone_number || !name.trim() || !email.trim() || !phone_number.trim()) {
 
 			res.status(400).json({message: 'Invalid Request !'});
 
-        } else {
+        } else if (!token || !token.trim()) { // user is not verified via email
 
-            // Store a document for user info in db
-            register.registerUser(name, email, phone_number)
+            // Send a confirmation email
+            register.registerUserInit(name, email, phone_number)
             
-            .then(result => {
+            .then(result => { // once query is resolved
 
-                res.setHeader('Location', '/users/' + email);
+                res.setHeader('Location', '/users/' + email); // user profile url
                 res.status(result.status).json({ message: result.message });
             
             })
 
-            .catch(err => {
+            .catch(err => { // once query is rejected
                 
+                res.status(err.status).json({ message: err.message });
+
+            });
+
+        } else { // secret code(token) was generated, so we need to verify the user
+            
+            register.registerUserVerify(name, email, phone_number, token)
+
+            .then(result => {
+
+                res.setHeader('Location', '/users/' + email); // user profile url
+                res.status(result.status).json({ message: result.message });
+
+            })
+
+            .catch(err => {
+
                 res.status(err.status).json({ message: err.message });
 
             });
