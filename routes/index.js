@@ -87,6 +87,7 @@ module.exports = function(router) {
 
         console.log(typeof lat);
         console.log(lat + " " + lng + " " + rad);
+        res.json({message: "success"});
 
     });
 
