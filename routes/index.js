@@ -77,4 +77,17 @@ module.exports = function(router) {
         .catch(err => res.status(err.status).json( { message: err.message }));
         
     });
+
+    // Receive Alarm
+    router.post('/alarm', function(req, res){
+        
+        const lat = req.body.lat;
+        const lng = req.body.lng;
+        const rad = req.body.rad;
+
+        console.log(typeof lat);
+        console.log(lat + " " + lng + " " + rad);
+
+    });
+
 }
