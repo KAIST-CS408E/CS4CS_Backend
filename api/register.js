@@ -148,7 +148,7 @@ exports.registerUserVerify = (name, email, phone_number, token) =>
             }    
         })
 
-        .then(user => resolve({ status: 200, message: 'Email Verified Successfully !' }))
+        .then(user => resolve({ status: 200, message: 'Email Verified Successfully' }))
 
 		.catch(err => reject({ status: 500, message: 'Internal Server Error !' }));
     });
