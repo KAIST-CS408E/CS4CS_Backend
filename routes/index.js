@@ -2,6 +2,7 @@
 
 const register = require('../api/register');
 const profile = require('../api/profile');
+const report = require('../api/report');
 
 /*
 req and res are both JSON format.
@@ -77,4 +78,32 @@ module.exports = function(router) {
         .catch(err => res.status(err.status).json( { message: err.message }));
         
     });
+
+    // Report
+    router.post('/alarm', function(req, res){
+        
+        const lat = req.body.lat;
+        const lng = req.body.lng;
+        const rad = req.body.rad;
+	
+	const title = req.body.title;
+	const cat_str = req.body.cat_str;
+	const desc = req.body.desc;
+
+        //console.log(typeof lat);
+        console.log(title+ ": ("+lat + "," + lng + "," + rad+")\n");
+
+	// save alarm
+	report.makeNewAlarm(lat, lng, rad, title, cat_str, desc)
+
+        .then(result => { // once query is resolved
+                res.status(result.status).json({ message: result.message }); 
+        })
+        .catch(err => { // once query is rejected        
+                res.status(err.status).json({ message: err.message });
+        });
+
+        res.json({message: "success"});
+    });
+
 }
