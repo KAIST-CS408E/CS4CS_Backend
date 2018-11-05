@@ -12,8 +12,8 @@ module.exports = function(router) {
     // Default
     router.get('/', (req, res) => {
 
-        res.end('Welcome to cs4cs!');
-
+        res.status(200).json({ message: 'Welcome to cs4cs!' });
+        
     });
 
     // Register
