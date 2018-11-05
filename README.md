@@ -19,7 +19,7 @@ https://insomnia.rest/download/
 4-1. For example, 
 ```
 // url
-http://143.248.188.11:8003/users/
+http://143.248.188.11:8001/users/
 
 // JSON body
 {
