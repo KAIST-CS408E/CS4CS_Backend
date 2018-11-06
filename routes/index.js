@@ -82,6 +82,7 @@ module.exports = function(router) {
     // Report
     router.post('/alarm', function(req, res){
         
+	//Testing commit
         const lat = req.body.lat;
         const lng = req.body.lng;
         const rad = req.body.rad;
