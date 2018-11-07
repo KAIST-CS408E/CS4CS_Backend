@@ -89,12 +89,12 @@ module.exports = function(router) {
         const title = req.body.title;
         const cat_str = req.body.cat_str;
         const desc = req.body.desc;
-        const reporter = req.body.reporter;
+        const reporter_email = req.body.reporter;
 
         console.log(title+ ": ("+lat + "," + lng + "," + rad+")\n");
 
     	// save alarm
-    	report.makeNewAlarm(lat, lng, rad, title, cat_str, desc, reporter)
+    	report.makeNewAlarm(lat, lng, rad, title, cat_str, desc, reporter_email)
 
         .then(result => { // once query is resolved
                 res.status(result.status).json({ message: result.message }); 
