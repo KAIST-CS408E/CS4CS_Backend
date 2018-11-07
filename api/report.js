@@ -31,5 +31,5 @@ exports.makeNewAlarm = (lat, lng, rad, title, cat_str, desc, reporter) =>
                 });
             }
         });
-    };
+    });
 
