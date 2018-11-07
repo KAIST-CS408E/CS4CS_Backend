@@ -86,15 +86,15 @@ module.exports = function(router) {
         const lng = req.body.lng;
         const rad = req.body.rad;
 	
-	const title = req.body.title;
-	const cat_str = req.body.cat_str;
-	const desc = req.body.desc;
+        const title = req.body.title;
+        const cat_str = req.body.cat_str;
+        const desc = req.body.desc;
 
         //console.log(typeof lat);
         console.log(title+ ": ("+lat + "," + lng + "," + rad+")\n");
 
-	// save alarm
-	report.makeNewAlarm(lat, lng, rad, title, cat_str, desc)
+    	// save alarm
+    	report.makeNewAlarm(lat, lng, rad, title, cat_str, desc)
 
         .then(result => { // once query is resolved
                 res.status(result.status).json({ message: result.message }); 
@@ -103,7 +103,7 @@ module.exports = function(router) {
                 res.status(err.status).json({ message: err.message });
         });
 
-        res.json({message: "success"});
+        //res.json({message: "success"});
     });
 
 }

@@ -14,13 +14,4 @@ const userSchema = Schema({
 	kaistian        : Boolean
 	
 });
-
-// Make a connection
-var db = mongoose.connection;
-db.on('error', console.error);
-db.once('open', () => {console.log("Connected to mongodb server.")});
-
-mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/cs4cs', { useMongoClient: true });
-
 module.exports = mongoose.model('user', userSchema);
