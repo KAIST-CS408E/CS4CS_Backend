@@ -103,7 +103,20 @@ module.exports = function(router) {
                 res.status(err.status).json({ message: err.message });
         });
 
-        //res.json({message: "success"});
     });
 
+    router.post('/:alarm_id/comment', (req, res) => {
+        
+        const alarm_id = req.params.alarm_id;
+        const is_parent = true;
+        const slug = req.body.slug;
+        const full_slug;
+        const author;
+        const contents = req.body.contents;
+
+    });
+
+    router.post('/:alarm_id/:parent_id/child_comment', (req, res) => {
+
+    });
 }
