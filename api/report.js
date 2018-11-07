@@ -2,7 +2,7 @@
 
 const Alarm = require('../models/alarm');
 
-exports.makeNewAlarm = (lat, lng, rad, title, cat_str, desc) => 
+exports.makeNewAlarm = (lat, lng, rad, title, cat_str, desc, reporter) => 
 
     new Promise((resolve,reject) => 
     {
@@ -13,6 +13,7 @@ exports.makeNewAlarm = (lat, lng, rad, title, cat_str, desc) =>
 	        title: title,
 	        cat_str: cat_str,
 	        desc: desc,
+            reporter: reporter,
 	        created_at: new Date()
         });
         return newAlarm.save()
