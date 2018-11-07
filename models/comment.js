@@ -25,15 +25,8 @@ const userSchema = Schema({
     parent_id       : ObjectId, // 대댓글 기능. 
     is_parent       : Boolean,  // parent or child
     
-    // for human-readable url
-    slug            : String,
-    
-    // combines the slugs and time information 
-    // to make it easier to sort documents in a comment by date.
-    full_slug       : String,
-    
     // comment info
-    posted_at       : String,
+    posted_at       : Date,
     author          : {
                         id  : ObjectId,
                         name: String

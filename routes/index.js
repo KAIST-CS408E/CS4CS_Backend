@@ -3,6 +3,7 @@
 const register = require('../api/register');
 const profile = require('../api/profile');
 const report = require('../api/report');
+const commentAPI = require('../api/commentAPI');
 
 /*
 req and res are both JSON format.
@@ -108,15 +109,35 @@ module.exports = function(router) {
     router.post('/:alarm_id/comment', (req, res) => {
         
         const alarm_id = req.params.alarm_id;
-        const is_parent = true;
-        const slug = req.body.slug;
-        const full_slug;
-        const author;
+        const author = req.body.author;
         const contents = req.body.contents;
 
+        commentAPI.commit_comment(alarm_id, author, contents)
+
+        .then(result => {
+
+        })
+
+        .catch(err => {
+
+        })
     });
 
     router.post('/:alarm_id/:parent_id/child_comment', (req, res) => {
+        
+        const alarm_id = req.params.alarm_id;
+        const parent_id = req.params.parent_id;
+        const author = req.body.author;
+        const contents = req.body.contents;
 
+        commentAPI.commit_child_comment(alarm_id, parent_id, author, contents)
+
+        .then(result => {
+
+        })
+
+        .catch(err => {
+            
+        })
     });
 }
