@@ -11,7 +11,8 @@ const userSchema = Schema({
 	phone_number	: String,
 	created_at		: String,
 	token			: {type: String, required: false}, // secret code for email verification
-	kaistian        : Boolean
+	kaistian        : Boolean,
+    last_alarm_check      : Date
 	
 });
 module.exports = mongoose.model('user', userSchema);
