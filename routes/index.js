@@ -80,6 +80,11 @@ module.exports = function(router) {
         
     });
 
+
+/**
+ * ALARM
+ */
+
     // Report (post a alarm)
     router.post('/alarm', function(req, res){
         
@@ -125,7 +130,20 @@ module.exports = function(router) {
          * (see below requests' urls)
          */
 
+        report.get_alarms()
+
+        .then(result => res.json(result))
+
+        .catch(err => {
+            res.status(err.status).json({ message: err.message });
+        });
+
     });
+
+
+/**
+ * COMMENT
+ */
 
     // Get a comment list of the alarm post
     router.get('/:alarm_id', (req, res) => {
@@ -140,9 +158,21 @@ module.exports = function(router) {
          * RESPONSE
          * 
          * list of info of each comment post 
+         * 
          * (depend on what response model Eunhyeok will make)
+         * BUT your response model has to contain 
+         * alarm_id and parent_id(parent comment's object id) for further request
          */
 
+        const alarm_id = req.params.alarm_id;
+
+        commentAPI.get_comments(alarm_id)
+
+        .then(result => res.json(result))
+
+        .catch(err => {
+            res.status(err.status).json({ message: err.message });
+        });
     });
 
     // Leave a comment (not a child comment)
@@ -169,7 +199,7 @@ module.exports = function(router) {
         commentAPI.commit_comment(alarm_id, author, contents)
 
         .then(result => {
-            res.status(result.status).json({ message: result.message });
+            res.status(result.status).json({ message: result.message, id: result.id });
         })
 
         .catch(err => {
@@ -179,12 +209,12 @@ module.exports = function(router) {
     });
 
     // Get a list of comment children of the parent comment
-    router.get('/:alarm_id/comment', (req, res) => {
+    router.get('/:alarm_id/:parent_id', (req, res) => {
 
         /**
          * REQUEST
          * 
-         * alarm_id on url
+         * alarm_id, parent_id on url
          */
 
         /**
@@ -196,6 +226,17 @@ module.exports = function(router) {
          * BUT your response model has to contain 
          * alarm_id and parent_id(parent comment's object id) for further request
          */
+
+        const alarm_id = req.params.alarm_id;
+        const parent_id = req.params.parent_id;
+
+        commentAPI.get_child_comments(alarm_id, parent_id)
+
+        .then(result => res.json(result))
+
+        .catch(err => {
+            res.status(err.status).json({ message: err.message });
+        });
 
     });
 
