@@ -12,7 +12,8 @@ const alarmSchema = Schema({
 	title			: String,
 	cat_str			: String,
 	desc		        : String,
-    reporter_id : ObjectId    
+    reporter_id : ObjectId,
+    created_at         :     Date
 });
 
 module.exports = mongoose.model('alarm', alarmSchema);
