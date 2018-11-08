@@ -4,6 +4,7 @@ const register = require('../api/register');
 const profile = require('../api/profile');
 const report = require('../api/report');
 const commentAPI = require('../api/commentAPI');
+const request = require('../api/request');
 
 /*
 req and res are both JSON format.
@@ -90,7 +91,7 @@ module.exports = function(router) {
         const title = req.body.title;
         const cat_str = req.body.cat_str;
         const desc = req.body.desc;
-        const reporter_email = req.body.reporter;
+        const reporter_email = req.body.reporter;        
 
         console.log(title+ ": ("+lat + "," + lng + "," + rad+")\n");
 
@@ -230,5 +231,19 @@ module.exports = function(router) {
         .catch(err => {
             res.status(err.status).json({ message: err.message });
         });
+    });
+
+    /* User alarm request */
+    router.post('/alarm/:email', (req, res) => {
+        
+        const email = req.params.email;
+
+        request.requestNewAlarm(email)
+            .then(alarms => {
+                
+            }).catch(err => {
+            
+            });
+            
     });
 }
