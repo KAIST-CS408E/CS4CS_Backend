@@ -18,7 +18,7 @@ const ObjectId = mongoose.Schema.Types.ObjectId;
  */
 
 
-const userSchema = Schema({ 
+const commentSchema = Schema({ 
 
     // relationship between a alarm post or a parent comment
     alarm_id        : ObjectId,

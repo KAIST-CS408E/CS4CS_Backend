@@ -80,7 +80,7 @@ module.exports = function(router) {
         
     });
 
-    // Report
+    // Report (post a alarm)
     router.post('/alarm', function(req, res){
         
         const lat = req.body.lat;
@@ -105,9 +105,63 @@ module.exports = function(router) {
         });
 
     });
+    
+    // Show a list of alarm posts
+    router.get('/alarmlist', (req, res) => {
 
+        /**
+         * REQUEST
+         * 
+         * only need url ("/alarmlist")
+         */
+
+        /**
+         * RESPONSE
+         * 
+         * list of info of each alarm post 
+         * 
+         * (depend on what response model Eunhyeok will make)
+         * BUT your response model has to contain alarm_id for further request
+         * (see below requests' urls)
+         */
+
+    });
+
+    // Get a comment list of the alarm post
+    router.get('/:alarm_id', (req, res) => {
+
+        /**
+         * REQUEST
+         * 
+         * alarm_id on url
+         */
+
+        /**
+         * RESPONSE
+         * 
+         * list of info of each comment post 
+         * (depend on what response model Eunhyeok will make)
+         */
+
+    });
+
+    // Leave a comment (not a child comment)
     router.post('/:alarm_id/comment', (req, res) => {
         
+        /**
+         * REQUEST
+         * 
+         * alarm_id on url
+         * author email
+         * contents string
+         */
+
+        /**
+         * RESPONSE
+         * 
+         * use (or modify) Model/Response
+         */
+
         const alarm_id = req.params.alarm_id;
         const author = req.body.author;
         const contents = req.body.contents;
@@ -115,16 +169,53 @@ module.exports = function(router) {
         commentAPI.commit_comment(alarm_id, author, contents)
 
         .then(result => {
-
+            res.status(result.status).json({ message: result.message });
         })
 
         .catch(err => {
-
-        })
+            res.status(err.status).json({ message: err.message });
+        });
+        
     });
 
+    // Get a list of comment children of the parent comment
+    router.get('/:alarm_id/comment', (req, res) => {
+
+        /**
+         * REQUEST
+         * 
+         * alarm_id on url
+         */
+
+        /**
+         * RESPONSE
+         * 
+         * list of info of each child comments 
+         * (depend on what response model Eunhyeok will make)
+         * 
+         * BUT your response model has to contain 
+         * alarm_id and parent_id(parent comment's object id) for further request
+         */
+
+    });
+
+    // Leave a child comment
     router.post('/:alarm_id/:parent_id/child_comment', (req, res) => {
         
+        /**
+         * REQUEST
+         * 
+         * alarm_id, parent_id on url
+         * author email
+         * contents string
+         */
+
+        /**
+         * RESPONSE
+         * 
+         * use (or modify) Model/Response
+         */
+
         const alarm_id = req.params.alarm_id;
         const parent_id = req.params.parent_id;
         const author = req.body.author;
@@ -133,11 +224,11 @@ module.exports = function(router) {
         commentAPI.commit_child_comment(alarm_id, parent_id, author, contents)
 
         .then(result => {
-
+            res.status(result.status).json({ message: result.message });
         })
 
         .catch(err => {
-            
-        })
+            res.status(err.status).json({ message: err.message });
+        });
     });
 }
