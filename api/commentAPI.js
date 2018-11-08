@@ -27,7 +27,7 @@ exports.commit_comment = (alarm_id, author, contents) =>
 
                 newComment.save();
 
-                return resolve({ status: 201, message: "Comment Created", id: newComment._id });
+                return resolve({ status: 201, message: "Comment Created" }); //, id: newComment._id
 
             })
             .catch(err => {
