@@ -270,6 +270,7 @@ module.exports = function(router) {
         })
 
         .catch(err => {
+            console.log(err.message);
             res.status(err.status).json({ message: err.message });
         });
     });
@@ -280,10 +281,10 @@ module.exports = function(router) {
         const email = req.params.email;
 
         request.requestNewAlarm(email)
-            .then(alarms => {
-                
-            }).catch(err => {
-            
+            .then(result => {
+                res.status(result.status).json({ alarms: result.alarm_list});
+            }).catch(err => {             
+                res.status(err.status).json({ message: err.message});
             });
             
     });
