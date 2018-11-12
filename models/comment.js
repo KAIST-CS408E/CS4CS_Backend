@@ -26,7 +26,7 @@ const commentSchema = Schema({
     is_parent       : Boolean,  // parent or child
     
     // comment info
-    posted_at       : Date,
+    created_at      : Date,
     author          : {
                         id  : ObjectId,
                         name: String

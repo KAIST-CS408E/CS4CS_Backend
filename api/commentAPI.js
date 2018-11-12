@@ -17,7 +17,7 @@ exports.commit_comment = (alarm_id, author, contents) =>
                 const newComment = new Comment({
                     alarm_id        : alarm_id,
                     is_parent       : true,
-                    posted_at       : new Date(),
+                    created_at      : new Date(),
                     author          : {
                                         id  : users[0]._id,
                                         name : users[0].name                
@@ -27,7 +27,7 @@ exports.commit_comment = (alarm_id, author, contents) =>
 
                 newComment.save();
 
-                return resolve({ status: 201, message: "Comment Created" });
+                return resolve({ status: 201, message: "Comment Created" }); //, id: newComment._id
 
             })
             .catch(err => {
@@ -61,7 +61,7 @@ exports.commit_child_comment = (alarm_id, parent_id, author, contents) =>
                         alarm_id        : alarm_id,
                         parent_id       : parent_id,
                         is_parent       : false,
-                        posted_at       : new Date(),
+                        created_at      : new Date(),
                         author          : {
                                             id  : users[0]._id,
                                             name : users[0].name                
@@ -69,10 +69,12 @@ exports.commit_child_comment = (alarm_id, parent_id, author, contents) =>
                         contents        : contents
                     });
 
-                    newComment.save();
+                    return newComment.save(); // return a Promise
 
+                })
+                .then(() => {
+                    // if newComment.save(); succeed
                     return resolve({ status: 201, message: "Comment Created" });
-
                 })
                 .catch(err => {
 
@@ -93,5 +95,69 @@ exports.commit_child_comment = (alarm_id, parent_id, author, contents) =>
             return reject({ status: 404, message: "Alarm Post Not Found ! Please reload" });
         
         });
+
+    });
+
+exports.get_comments = (alarm_id) => 
+    new Promise((resolve, reject) => {
+
+        Comment.find({
+            alarm_id    : alarm_id, 
+            is_parent   : true
+        }, 
+        
+        {   // projection. you can select values you want to get
+            // https://stackoverflow.com/questions/24949544/mongodb-cant-canonicalize-query-badvalue-projection-cannot-have-a-mix-of-incl
+            _id             : 0,
+            created_at      : 1,
+            author          : 1,
+            contents        : 1
+        })
+        
+        .sort('created_at')
+
+        .then(comments => {
+            
+            resolve(comments);
+
+        })
+
+        .catch(err => {
+
+            reject({ status: 500, message: "Internal Server Error !" });
+            
+        })
+
+    });
+
+exports.get_child_comments = (alarm_id, parent_id) => 
+    new Promise((resolve, reject) => {
+
+        Comment.find({
+            alarm_id    : alarm_id, 
+            parent_id   : parent_id, 
+            is_parent   : false
+        }, 
+        
+        {   // projection. you can select values you want to get
+            _id             : 0,
+            created_at      : 1,
+            author          : 1,
+            contents        : 1
+        })
+        
+        .sort('created_at')
+
+        .then(comments => {
+            
+            resolve(comments);
+
+        })
+
+        .catch(err => {
+
+            reject({ status: 500, message: "Internal Server Error !" });
+            
+        })
 
     });

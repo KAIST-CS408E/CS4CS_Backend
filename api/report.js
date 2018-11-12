@@ -3,9 +3,35 @@
 const Alarm = require('../models/alarm');
 const User = require('../models/user');
 
+exports.get_alarms = () =>
+
+    new Promise((resolve, reject) => {
+
+        Alarm.find({}, {
+            _id         : 0,
+            title		: 1,
+            desc		: 1,
+            reporter_id : 1    
+        }).sort('created_at')
+
+        .then(alarms => {
+            
+            resolve(alarms);
+
+        })
+
+        .catch(err => {
+
+            reject({ status: 500, message: "Internal Server Error !" });
+            
+        })
+
+    });
+    
+
 exports.makeNewAlarm = (lat, lng, rad, title, cat_str, desc, reporter_email) => 
 
-    new Promise((resolve,reject) => 
+    new Promise((resolve, reject) => 
     {
         
         User.find({email: reporter_email})
