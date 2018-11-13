@@ -1,1 +1,1 @@
-console.log(new Date());
+var admin = require('firebase-admin');
