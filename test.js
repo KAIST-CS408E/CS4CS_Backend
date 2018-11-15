@@ -10,13 +10,10 @@ var topic = 'alarm';
 var dryRun = true;
 
 var message = {
-    notification: {
-        title: "Test",
-        body: "test"
-    },
+
     data: {
-        lat: '1',
-        lng: '1'
+        title: 'zebal',
+        body: 'please'
     },
     token: registrationToken
 };
