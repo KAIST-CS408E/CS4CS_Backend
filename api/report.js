@@ -8,10 +8,15 @@ exports.get_alarms = () =>
     new Promise((resolve, reject) => {
 
         Alarm.find({}, {
-            _id         : 0,
+            _id         : 1,
+            lat         : 1,
+            lng         : 1,
+            rad         : 1,
             title		: 1,
+            cat_str     : 1,
             desc		: 1,
-            reporter_id : 1    
+            reporter_id : 1,    
+            created_at  : 1
         }).sort('created_at')
 
         .then(alarms => {
