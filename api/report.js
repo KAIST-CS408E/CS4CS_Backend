@@ -10,6 +10,8 @@ var defaultApp = admin.initializeApp({
           credential: admin.credential.cert(serviceAccount)
 });
 
+const ObjectID = require('mongoose').Schema.Types.ObjectId;
+
 exports.get_alarms = () =>
 
     new Promise((resolve, reject) => {
@@ -92,6 +94,39 @@ exports.makeNewAlarm = (lat, lng, rad, title, cat_str, desc, reporter_email) =>
                         });                            
                 });
                   
+            }
+        });
+    });
+
+
+exports.getReporter = (alarm_id) =>
+
+    new Promise((resolve, reject) =>
+    {
+        console.log("Will find "+alarm_id);
+
+        Alarm.find({_id: new ObjectId(alarm_id)})
+        .then(alarms => {
+            console.log("Done finding");
+            if(alarms.length == 0){
+                console.log("Invalid alarm ID");
+                reject({status: 401, message: 'Invalid alarm ID'});
+            }
+            else{
+                console.log("Found alarm");
+                return alarms[0].reporter_id;
+            }
+        })
+        .then(reporter_id => {
+            return User.find({_id: reporter_id})
+        })
+        .then(users => {
+            if(users.length == 0){
+                console.log("Invalid reporter ID");
+                reject({status: 401, message: 'Invalid reporter ID'});
+            }
+            else{
+                resolve(users[0]);
             }
         });
     });

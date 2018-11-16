@@ -87,7 +87,7 @@ module.exports = function(router) {
  */
 
     // Report (post a alarm)
-    router.post('/alarm', function(req, res){
+    router.post('/alarm/report', function(req, res){
         
         const lat = req.body.lat;
         const lng = req.body.lng;
@@ -113,7 +113,7 @@ module.exports = function(router) {
     });
     
     // Show a list of alarm posts
-    router.get('/alarmlist', (req, res) => {
+    router.get('/alarm/get_list', (req, res) => {
 
         /**
          * REQUEST
@@ -141,6 +141,14 @@ module.exports = function(router) {
 
     });
 
+    router.get('/alarm/reporter/:alarm_id', (req, res) => {
+        const alarm_id = req.params.alarm_id;
+        report.getReporter(alarm_id)
+        .then(result => res.json(result))
+        .catch(err => {
+            res.status(err.status).json({ message: err.message });
+        });
+    });
 
 /**
  * COMMENT
@@ -276,7 +284,7 @@ module.exports = function(router) {
     });
 
     /* User alarm request */
-    router.post('/alarm/:email', (req, res) => {
+    router.post('/alarm_request/:email', (req, res) => {
         
         const email = req.params.email;
 
