@@ -2,7 +2,7 @@
 
 const Alarm = require('../models/alarm');
 const User = require('../models/user');
-const ObjectID = require('mongoose').Schema.Types.ObjectId;
+// const ObjectID = require('mongoose').Schema.Types.ObjectId;
 
 exports.get_alarms = () =>
 
@@ -78,7 +78,7 @@ exports.getReporter = (alarm_id) =>
     {
         console.log("Will find "+alarm_id);
 
-        Alarm.find({_id: new ObjectId(alarm_id)})
+        Alarm.find({_id: alarm_id})
         .then(alarms => {
             console.log("Done finding");
             if(alarms.length == 0){
@@ -91,6 +91,8 @@ exports.getReporter = (alarm_id) =>
             }
         })
         .then(reporter_id => {
+            console.log("reporter id:")
+            console.log(reporter_id)
             return User.find({_id: reporter_id})
         })
         .then(users => {
@@ -101,6 +103,11 @@ exports.getReporter = (alarm_id) =>
             else{
                 resolve(users[0]);
             }
-        });
+        })
+        .catch(err => {
+
+            reject({ status: 500, message: "Internal Server Error !" });
+            
+        })
     });
 
