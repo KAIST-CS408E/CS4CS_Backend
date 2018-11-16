@@ -3,6 +3,13 @@
 const Alarm = require('../models/alarm');
 const User = require('../models/user');
 // const ObjectID = require('mongoose').Schema.Types.ObjectId;
+const admin = require('firebase-admin');
+const serviceAccount = require('../cs4cs-d1f39-firebase-adminsdk-vnkqd-00261e2dfc.json');
+const topic = 'alarm';
+
+var defaultApp = admin.initializeApp({
+          credential: admin.credential.cert(serviceAccount)
+});
 
 exports.get_alarms = () =>
 
@@ -62,11 +69,30 @@ exports.makeNewAlarm = (lat, lng, rad, title, cat_str, desc, reporter_email) =>
                     reporter_id: users[0]._id,
 	                created_at: new Date()
                 });
-                return newAlarm.save()
+                
+                newAlarm.save()
                 .then(() => {
                     console.log("Send report confirm message");
 	                resolve({status: 201, message: 'Alarm is reported to server (title:'+title+')'});
+                })
+                .then(() => {
+                    
+                    var message = {
+                        data: {
+                            title: 'alarm title',
+                            body: 'alarm bdoy'
+                        }
+                    };
+
+                    admin.messaging().send(message)
+                        .then((response) => {
+                            console.log('Successfully sent message, response');
+                        })
+                        .catch((error) => {
+                            console.log('Error sending message:', error);
+                        });                            
                 });
+                  
             }
         });
     });
