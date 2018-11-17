@@ -87,7 +87,7 @@ exports.makeNewAlarm = (lat, lng, rad, title, cat_str, desc, reporter_email) =>
 
                     admin.messaging().send(message)
                         .then((response) => {
-                            console.log('Successfully sent message, response');
+                            console.log('Successfully sent message', response);
                         })
                         .catch((error) => {
                             console.log('Error sending message:', error);
