@@ -79,9 +79,10 @@ exports.makeNewAlarm = (lat, lng, rad, title, cat_str, desc, reporter_email) =>
                     
                     var message = {
                         data: {
-                            title: 'alarm title',
-                            body: 'alarm bdoy'
-                        }
+                            title: title,
+                            body: desc
+                        },
+                        topic : 'alarm'
                     };
 
                     admin.messaging().send(message)
