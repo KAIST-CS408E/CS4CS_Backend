@@ -4,7 +4,6 @@ const register = require('../api/register');
 const profile = require('../api/profile');
 const report = require('../api/report');
 const commentAPI = require('../api/commentAPI');
-const request = require('../api/request');
 
 /*
 req and res are both JSON format.
@@ -281,19 +280,5 @@ module.exports = function(router) {
             console.log(err.message);
             res.status(err.status).json({ message: err.message });
         });
-    });
-
-    /* User alarm request */
-    router.post('/alarm_request/:email', (req, res) => {
-        
-        const email = req.params.email;
-
-        request.requestNewAlarm(email)
-            .then(result => {
-                res.status(result.status).json({ alarms: result.alarm_list});
-            }).catch(err => {             
-                res.status(err.status).json({ message: err.message});
-            });
-            
     });
 }

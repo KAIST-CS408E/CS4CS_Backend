@@ -14,25 +14,27 @@ var defaultApp = admin.initializeApp({
 var topic = 'alarm';
 var dryRun = true;
 
-exports.send_alarm = (alarm) => {
+exports.send_alarm = (alarm) => 
+    new Promise((resolve, reject) => {
 
-    var message = {
+        var message = {
 
-        data: {
-            title: 'zebal',
-            body: 'please'
+            data: {
+                title: 'zebal',
+                body: 'please'
             },
-          topic: topic
-//        token: taeToken
-    };
+//            topic: topic
+            token: taeToken
+        };
 
-    admin.messaging().send(message)
-        .then((response) => {
-            console.log('Successfully sent message:', response);
-        })
-        .catch((error) => {
-            console.log('Error sending message:', error);
-        });        
+        admin.messaging().send(message)
+            .then((response) => {
+                console.log('Successfully sent message:', response);
+                resolve();
+             })
+            .catch((error) => {
+                console.log('Error sending message:', error);
+                reject(error);
+            });        
+    });
 
-    console.log("test executing");
-}

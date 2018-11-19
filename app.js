@@ -8,7 +8,7 @@ const port = process.env.port || 8002;
 const route = require('./routes/index');
 const mongoose = require('mongoose');
 const Alarm = require('./models/alarm');
-const performnace = require('perf_hooks').performance;
+
 // Mount middlewares
 app.use(bodyParser.json());
 app.use(logger('dev'));
@@ -28,7 +28,8 @@ app.listen(port);
 console.log(`App runs on ${port}.`);
 
 //Send all alarms for infinite time
-function sendAlarm(){
+/*
+function prevAlarm(){
     console.log("sendAlarm");
     
     console.time('check');
@@ -43,4 +44,6 @@ function sendAlarm(){
     
 }
 
-setInterval(sendAlarm, 10000);
+setInterval(prevAlarm, 10000);
+*/
+
