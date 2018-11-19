@@ -20,8 +20,8 @@ exports.send_alarm = (alarm) =>
         var message = {
 
             data: {
-                title: 'zebal',
-                body: 'please'
+                title: alarm.title,
+                body: alarm.desc
             },
 //            topic: topic
             token: taeToken
@@ -30,6 +30,7 @@ exports.send_alarm = (alarm) =>
         admin.messaging().send(message)
             .then((response) => {
                 console.log('Successfully sent message:', response);
+                console.log(alarm.title);
                 resolve();
              })
             .catch((error) => {

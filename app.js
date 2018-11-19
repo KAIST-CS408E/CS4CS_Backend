@@ -8,6 +8,7 @@ const port = process.env.port || 8002;
 const route = require('./routes/index');
 const mongoose = require('mongoose');
 const Alarm = require('./models/alarm');
+const sendAlarm = require('./api/sendAlarm');
 
 // Mount middlewares
 app.use(bodyParser.json());
@@ -28,7 +29,6 @@ app.listen(port);
 console.log(`App runs on ${port}.`);
 
 //Send all alarms for infinite time
-/*
 function prevAlarm(){
     console.log("sendAlarm");
     
@@ -37,13 +37,19 @@ function prevAlarm(){
         if (err) throw err;
         
         for (var i = 0; i < alarms.length; i++)
-            console.log(alarms[i].rad);
+        {          
+            console.log(alarms[i].title);            
+            sendAlarm.send_alarm(alarms[i])
+                .then(() => {
+                    if (i == alarms.length - 1)
+                        console.timeEnd('check');
+                });                      
+        }
 
-        console.timeEnd('check');
     });
     
 }
 
-setInterval(prevAlarm, 10000);
-*/
+setInterval(prevAlarm, 20000);
+
 
