@@ -70,7 +70,7 @@ exports.makeNewAlarm = (lat, lng, rad, title, cat_str, desc, reporter_email) =>
 	                resolve({status: 201, message: 'Alarm is reported to server (title:'+title+')'});
                 })
                 .then(() => {
-                    sendAlarm.send_alarm(newAlarm);    
+                    sendAlarm.send_alarm(newAlarm, true);    
                 });
                   
             }

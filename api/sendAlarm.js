@@ -14,12 +14,13 @@ var defaultApp = admin.initializeApp({
 var topic = 'alarm';
 var dryRun = true;
 
-exports.send_alarm = (alarm) => 
+exports.send_alarm = (alarm, is_it_first) => 
     new Promise((resolve, reject) => {
 
         var message = {
 
             data: {
+                first: is_it_first.toString(),
                 title: alarm.title,
                 body: alarm.desc
             },

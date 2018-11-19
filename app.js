@@ -36,12 +36,13 @@ function prevAlarm(){
     Alarm.find(function(err, alarms) {
         if (err) throw err;
         
-        for (var i = 0; i < alarms.length; i++)
+        var i;
+        for (i = 0; i < alarms.length; i++)
         {          
             console.log(alarms[i].title);            
-            sendAlarm.send_alarm(alarms[i])
+            sendAlarm.send_alarm(alarms[i], false)
                 .then(() => {
-                    if (i == alarms.length - 1)
+                    if(i == alarms.length)
                         console.timeEnd('check');
                 });                      
         }
@@ -50,6 +51,6 @@ function prevAlarm(){
     
 }
 
-setInterval(prevAlarm, 20000);
+setInterval(prevAlarm, 5000);
 
 
