@@ -4,7 +4,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const logger = require('morgan');
 const router = express.Router();
-const port = process.env.port || 8002;
+const port = process.env.port || 8001;
 const route = require('./routes/index');
 const mongoose = require('mongoose');
 const Alarm = require('./models/alarm');
@@ -51,6 +51,6 @@ function prevAlarm(){
     
 }
 
-setInterval(prevAlarm, 5000);
+//setInterval(prevAlarm, 5000);
 
 
