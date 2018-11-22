@@ -108,7 +108,7 @@ exports.get_comments = (alarm_id) =>
         
         {   // projection. you can select values you want to get
             // https://stackoverflow.com/questions/24949544/mongodb-cant-canonicalize-query-badvalue-projection-cannot-have-a-mix-of-incl
-            _id             : 0,
+            _id             : 1,
             created_at      : 1,
             author          : 1,
             contents        : 1
