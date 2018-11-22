@@ -154,7 +154,7 @@ module.exports = function(router) {
  */
 
     // Get a comment list of the alarm post
-    router.get('/:alarm_id', (req, res) => {
+    router.get('/comment/get_list/:alarm_id', (req, res) => {
 
         /**
          * REQUEST
@@ -184,7 +184,7 @@ module.exports = function(router) {
     });
 
     // Leave a comment (not a child comment)
-    router.post('/:alarm_id/comment', (req, res) => {
+    router.post('/comment/make/:alarm_id', (req, res) => {
         
         /**
          * REQUEST
@@ -217,7 +217,7 @@ module.exports = function(router) {
     });
 
     // Get a list of comment children of the parent comment
-    router.get('/:alarm_id/:parent_id', (req, res) => {
+    router.get('/comment/get_child_list/:alarm_id/:parent_id', (req, res) => {
 
         /**
          * REQUEST
@@ -249,7 +249,7 @@ module.exports = function(router) {
     });
 
     // Leave a child comment
-    router.post('/:alarm_id/:parent_id/child_comment', (req, res) => {
+    router.post('/comment/make_child/:alarm_id/:parent_id', (req, res) => {
         
         /**
          * REQUEST

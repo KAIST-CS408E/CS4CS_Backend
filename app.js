@@ -52,6 +52,5 @@ function prevAlarm(){
     
 }
 
-setInterval(prevAlarm, 60000);
-
+//setInterval(prevAlarm, 60000);
 
