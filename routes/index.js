@@ -217,7 +217,7 @@ module.exports = function(router) {
     });
 
     // Get a list of comment children of the parent comment
-    router.get('/comment/get_child_list/:alarm_id/:parent_id', (req, res) => {
+    router.get('/comment/get_list_reply/:alarm_id/:parent_id', (req, res) => {
 
         /**
          * REQUEST
@@ -249,7 +249,7 @@ module.exports = function(router) {
     });
 
     // Leave a child comment
-    router.post('/comment/make_child/:alarm_id/:parent_id', (req, res) => {
+    router.post('/comment/make_reply/:alarm_id/:parent_id', (req, res) => {
         
         /**
          * REQUEST
