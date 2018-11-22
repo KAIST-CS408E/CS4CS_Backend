@@ -31,7 +31,7 @@ const commentSchema = Schema({
                         id  : ObjectId,
                         name: String
                     },
-    contents        : String
-	
+    contents        : String,
+    num_replies     : {type:Number, default:0}	
 });
 module.exports = mongoose.model('comment', commentSchema);

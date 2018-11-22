@@ -22,7 +22,7 @@ exports.commit_comment = (alarm_id, author, contents) =>
                                         id  : users[0]._id,
                                         name : users[0].name                
                                     },
-                    contents        : contents
+                    contents        : contents,
                 });
 
                 newComment.save();
@@ -51,9 +51,9 @@ exports.commit_child_comment = (alarm_id, parent_id, author, contents) =>
         Alarm.find({ _id: alarm_id })
         .then(alarms => {
 
-            Comment.find({ _id: parent_id })
+            Comment.findOneAndUpdate({ _id: parent_id }, {$inc : {'num_replies':1}})
             .then(parent_comments => {
-                
+                parent_comments
                 User.find({ email: author })
                 .then(users => {
                     
@@ -111,7 +111,8 @@ exports.get_comments = (alarm_id) =>
             _id             : 1,
             created_at      : 1,
             author          : 1,
-            contents        : 1
+            contents        : 1,
+            num_replies     : 1
         })
         
         .sort('created_at')
