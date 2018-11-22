@@ -4,6 +4,7 @@ const register = require('../api/register');
 const profile = require('../api/profile');
 const report = require('../api/report');
 const commentAPI = require('../api/commentAPI');
+const announce = require('../api/announce');
 
 /*
 req and res are both JSON format.
@@ -281,4 +282,51 @@ module.exports = function(router) {
             res.status(err.status).json({ message: err.message });
         });
     });
+    
+
+
+
+
+    /*
+     *  Announcements 
+     *  */
+
+    
+    router.post('/announce/make/:alarm_id', (req, res) => {
+ 
+        const alarm_id = req.params.alarm_id;
+        const contents = req.body.contents;
+
+        announce.commit_announce(alarm_id, contents)
+
+        .then(result => {
+            res.status(result.status).json({ message: result.message, id: result.id });
+        })
+
+        .catch(err => {
+            res.status(err.status).json({ message: err.message });
+        });
+
+    });
+
+    router.get('/announce/get_list/:alarm_id', (req, res) => {
+
+        const alarm_id = req.params.alarm_id;
+
+        announce.get_announces(alarm_id)
+
+        .then(result => res.json(result))
+
+        .catch(err => {
+            res.status(err.status).json({ message: err.message });
+        });
+ 
+    });
+
 }
+
+
+
+
+
+
