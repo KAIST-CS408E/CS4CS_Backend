@@ -4,7 +4,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const logger = require('morgan');
 const router = express.Router();
-const port = process.env.port || 8002;
+const port = process.env.port || 8001;
 const route = require('./routes/index');
 const mongoose = require('mongoose');
 const Alarm = require('./models/alarm');
@@ -30,20 +30,21 @@ console.log(`App runs on ${port}.`);
 
 //Send all alarms for infinite time
 function prevAlarm(){
-    console.log("sendAlarm");
     
     console.time('check');
     Alarm.find(function(err, alarms) {
         if (err) throw err;
         
-        var i;
-        for (i = 0; i < alarms.length; i++)
-        {          
-            console.log(alarms[i].title);            
-            sendAlarm.send_alarm(alarms[i], false)
-                .then(() => {
-                    if(i == alarms.length)
+        var count = 0;
+        for (var i = 0; i < alarms.length; i++)
+        {                           
+            sendAlarm.send_alarm(alarms[i], false, i)
+                .then(() => {                   
+                                        
+                    count += 1;
+                    if(count == alarms.length)
                         console.timeEnd('check');
+                       
                 });                      
         }
 
@@ -51,6 +52,6 @@ function prevAlarm(){
     
 }
 
-setInterval(prevAlarm, 5000);
+setInterval(prevAlarm, 60000);
 
 
