@@ -21,13 +21,20 @@ exports.send_alarm = (alarm, is_it_first, index) =>
 
             data: {
                 first: is_it_first.toString(),
-                title: alarm.title,
-                body: alarm.desc,
+                id: alarm._id.toString(),                              
                 lat: alarm.lat.toString(),
-                lng: alarm.lng.toString()
+                lng: alarm.lng.toString(),
+                rad: alarm.rad.toString(),               
+                title: alarm.title,
+                cat_str: alarm.cat_str,
+                desc: alarm.desc,             
+                reporter_id: alarm.reporter_id.toString(),
+                created_at: alarm.created_at.toString(),
+                floor: alarm.floor,
+                room_number: alarm.room_number             
             },
-//            topic: topic,
-            token: taeToken
+              topic: topic
+//            token: taeToken
         };
          
         admin.messaging().send(message)

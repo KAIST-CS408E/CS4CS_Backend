@@ -36,7 +36,8 @@ exports.get_alarms = () =>
     });
     
 
-exports.makeNewAlarm = (lat, lng, rad, title, cat_str, desc, reporter_email) => 
+exports.makeNewAlarm = (lat, lng, rad, title, cat_str, 
+        desc, reporter_email, floor, room_number) => 
 
     new Promise((resolve, reject) => 
     {
@@ -61,7 +62,9 @@ exports.makeNewAlarm = (lat, lng, rad, title, cat_str, desc, reporter_email) =>
 	                cat_str: cat_str,
 	                desc: desc,
                     reporter_id: users[0]._id,
-	                created_at: new Date()
+	                created_at: new Date(),
+                    floor: floor,
+                    room_number: room_number 
                 });
                 
                 newAlarm.save()

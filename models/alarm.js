@@ -13,7 +13,9 @@ const alarmSchema = Schema({
 	cat_str			: String,
 	desc		        : String,
     reporter_id : ObjectId,
-    created_at         :     Date
+    created_at         :     Date,
+    floor        :    String,
+    room_number     : String
 });
 
 module.exports = mongoose.model('alarm', alarmSchema);
