@@ -18,7 +18,9 @@ exports.get_alarms = () =>
             cat_str     : 1,
             desc		: 1,
             reporter_id : 1,    
-            created_at  : 1
+            created_at  : 1,
+            floor       : 1,
+            room_number : 1
         }).sort('created_at')
 
         .then(alarms => {

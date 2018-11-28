@@ -29,7 +29,7 @@ exports.send_alarm = (alarm, is_it_first, index) =>
                 cat_str: alarm.cat_str,
                 desc: alarm.desc,             
                 reporter_id: alarm.reporter_id.toString(),
-                created_at: alarm.created_at.toString(),
+                created_at: alarm.created_at.toISOString(),
                 floor: alarm.floor,
                 room_number: alarm.room_number             
             },
